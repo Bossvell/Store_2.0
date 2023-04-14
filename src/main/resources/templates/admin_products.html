@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Панель редактирования товаров</title>
+</head>
+<body>
+<form method="POST" action="/logout"><button type="submit">Выход</button></form>
+    <table>
+        <tr>
+            <th>Изображение</th>
+            <th>Название</th>
+            <th>Наличие</th>
+            <th>Цена</th>
+            <th>В магазин</th>
+        </tr>
+        <tr th:each="product : ${listProduct}">
+            <td>
+                <a th:href="@{/admin/product/{id}(id = ${product.getId()})}">
+                    <img th:src="@{/img/{img}(img = ${product.getImage()})}" width="50px">
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/admin/product/{id}(id = ${product.getId()})}" th:text="${product.getName()}"></a>
+            </td>
+            <td>
+                <p th:text="${product.getQuantity()}"></p>
+            </td>
+            <td>
+                <p th:text="${product.getPrice()}"></p>
+            </td>
+            <td>
+                <a th:href="@{/product/{id}(id = ${product.getId()})}"> В магазин</a>
+            </td>
+        </tr>
+    </table>
+<a href="/admin/products/add">Добавить товар</a>
+</body>
+</html>
