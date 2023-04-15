@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование товара</title>
+</head>
+<body>
+    <form th:method="POST" th:action="@{/admin/products/{id}(id=${product.getId()})}" th:object="${product}">
+        <input type="hidden" th:field="*{id}">
+        <label for="image">Изобржение</label>
+        <input th:field="*{image}" id="image" type="text"><br><br>
+        <label for="name">Название</label>
+        <input th:field="*{name}" id="name" type="text"><br>
+        <label for="description">Описание</label>
+        <input th:field="*{description}" id="description" type="text" ><br>
+        <label for="quantity">Количество</label>
+        <input th:field="*{quantity}" id="quantity" type="number" ><br><br>
+        <label for="price">Цена</label>
+        <input th:field="*{price}" id="price" type="number"><br>
+        <input type="submit" value="Сохранить">
+    </form>
+</body>
+</html>

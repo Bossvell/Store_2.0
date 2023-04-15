@@ -16,12 +16,15 @@
         </tr>
         <tr th:each="product : ${listProduct}">
             <td>
-                <a th:href="@{/admin/product/{id}(id = ${product.getId()})}">
+                <a th:href="@{/admin/products/{id}(id = ${product.getId()})}">
                     <img th:src="@{/img/{img}(img = ${product.getImage()})}" width="50px">
                 </a>
             </td>
             <td>
-                <a th:href="@{/admin/product/{id}(id = ${product.getId()})}" th:text="${product.getName()}"></a>
+                <a th:href="@{/admin/products/{id}(id = ${product.getId()})}" th:text="${product.getName()}"></a>
+                <br>
+                <a th:href="@{/admin/products/{id}(id = ${product.getId()})}">Изменить </a>
+                <a th:href="@{/admin/products/{id}/delete(id = ${product.getId()})}">Удалить </a>
             </td>
             <td>
                 <p th:text="${product.getQuantity()}"></p>
