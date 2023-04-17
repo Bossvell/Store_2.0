@@ -2,6 +2,8 @@ package com.example.store.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="product")
 public class Product {
