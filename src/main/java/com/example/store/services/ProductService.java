@@ -5,7 +5,14 @@ import com.example.store.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 
 @Service
@@ -19,13 +26,17 @@ public class ProductService {
     }
     @Transactional
     public void editProduct(Product editedProduct) {
-        Optional<Product> editedOptionalProduct = productRepository.findById(editedProduct.getId());
-        Product product = editedOptionalProduct.orElse(null);
-        product.setName(editedProduct.getName());
-        product.setDescription(editedProduct.getDescription());
-        product.setImage(editedProduct.getImage());
-        product.setPrice(editedProduct.getPrice());
-        product.setQuantity(editedProduct.getQuantity());
-        productRepository.save(product);
+        productRepository.save(editedProduct);
+    }
+
+    public void setImage(Product product, MultipartFile file){
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        try {
+            Path path = Paths.get("./src/main/resources/static/images/" + fileName);
+            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        product.setImage(fileName);
     }
 }

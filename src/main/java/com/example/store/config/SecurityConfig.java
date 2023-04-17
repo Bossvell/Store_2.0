@@ -22,11 +22,11 @@ public class SecurityConfig {
     }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http//.csrf().disable()
-            .authorizeHttpRequests()//все страницы защищены формой аутентификации
+        http.csrf().disable()  //не работает logout
+        .authorizeHttpRequests()//все страницы защищены формой аутентификации
             .requestMatchers("/admin").hasRole("ADMIN")// паттерн admin доступен только для роли ADMIN
-                .requestMatchers("/authentication", "/registration","/error","/resources/**", "/static/**",
-                        "/css/**","/js/**","/img/**").permitAll()//доступны всем
+                .requestMatchers("/authentication", "/logout","/registration","/error","/resources/**", "/static/**",
+                        "/css/**","/js/**","/images/**").permitAll()//доступны всем
                 .anyRequest().hasAnyRole("USER","ADMIN")// все остальные доступны обоим пользователям
                 //("/authentication","/error", "/registration").permitAll()//для незалогиненых доступны страницы
                 //.anyRequest().authenticated()//для всех остальных запустить форму аутентификацию

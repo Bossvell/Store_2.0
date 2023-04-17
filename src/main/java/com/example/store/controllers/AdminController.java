@@ -7,8 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +24,7 @@ public class AdminController {
 
     private final ProductRepository productRepository;
     private final ProductService productService;
+
     @Autowired
     public AdminController(ProductRepository productRepository, ProductService productService) {
         this.productRepository = productRepository;
@@ -43,9 +51,10 @@ public class AdminController {
     }
     @Transactional
     @PostMapping("/admin/products/add")
-    public String addingProduct(@ModelAttribute Product product){
+    public String addingProduct(@ModelAttribute Product product, @RequestParam ("file") MultipartFile file){
+        productService.setImage(product, file);
         productRepository.save(product);
-        return "redirect:admin_products";
+        return "redirect:/admin/products";
     }
 
 
@@ -58,8 +67,15 @@ public class AdminController {
 
     @PostMapping("/admin/products/{id}")
     @Transactional
-    public String editedProduct(@ModelAttribute Product product){
+    public String editedProduct(@ModelAttribute Product product, @RequestParam ("file") MultipartFile file) {
+        productService.setImage(product, file);
         productService.editProduct(product);
+        return "redirect:/admin/products";
+    }
+
+    @GetMapping("/admin/products/{id}/delete")
+    public String deleteProduct(@PathVariable("id") int id){
+        productRepository.deleteById(id);
         return "redirect:/admin/products";
     }
 

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${product.getName()}"></title>
+</head>
+<body>
+    <h1 th:text="${product.getName()}"></h1>
+    <img th:src="@{../images/{img}(img=${product.getImage()})}" width="500" th:alt="${product.getName()}">
+    <h2 th:text="${product.getPrice()}"></h2>
+    <div th:if="${product.getQuantity()>0}">
+    <form th:method="post" th:action="@{/product/addToCard}" th:object="${product}">
+        <label for="quantity" th:text="'В наличии '+${product.getQuantity()} +' шт.'"></label><br>
+        <input type="number" th:field="*{quantity}" th:max="${product.getQuantity()}" id="quantity" name="quantity">
+        <button type="submit">В корзину</button>
+    </form>
+    </div>
+    <h3 th:if="${product.getQuantity()<=0}">Нет в наличии</h3>
+    <p th:text="${product.getDescription()}"></p>
+
+
+</body>
+</html>

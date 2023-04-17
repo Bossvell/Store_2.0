@@ -5,7 +5,7 @@
     <title>Добавление товара</title>
 </head>
 <body>
-    <form th:method="POST" th:action="@{/admin/products/add}" th:object="${product}">
+    <form th:method="POST" th:action="@{/admin/products/add}" th:object="${product}" enctype="multipart/form-data">
         <label for="name">Название товара: </label>
         <input type="text" th:field="*{name}" id="name" name="name">
         <label for="description">Описание товара: </label>
@@ -16,6 +16,7 @@
         <input type="number" th:field="*{price}" id="price" name="price">
         <label for="img">Фотография товара: </label>
         <input type="text" th:field="*{image}" id="img" name="img">
+        <input type="file" name="file" accept="image/png, image/gif, image/jpeg">
         <button type="submit">Сохранить</button>
     </form>
 </body>
