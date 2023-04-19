@@ -26,7 +26,7 @@ public class SecurityConfig {
         .authorizeHttpRequests()//все страницы защищены формой аутентификации
             .requestMatchers("/admin").hasRole("ADMIN")// паттерн admin доступен только для роли ADMIN
                 .requestMatchers("/authentication", "/logout","/registration","/error","/resources/**", "/static/**",
-                        "/css/**","/js/**","/images/**", "/index", "/product/**").permitAll()//доступны всем
+                        "/css/**","/js/**","/images/**", "/index", "/product/**", "/search").permitAll()//доступны всем
                 .anyRequest().hasAnyRole("USER","ADMIN")// все остальные доступны обоим пользователям
                 //("/authentication","/error", "/registration").permitAll()//для незалогиненых доступны страницы
                 //.anyRequest().authenticated()//для всех остальных запустить форму аутентификацию
