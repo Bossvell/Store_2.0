@@ -1,32 +1,36 @@
 package com.example.store.controllers;
 
 import com.example.store.models.Person;
-import com.example.store.security.PersonDetails;
+import com.example.store.models.Product;
+import com.example.store.repositories.ProductRepository;
 import com.example.store.services.PersonService;
 import com.example.store.util.PersonValidator;
 import jakarta.validation.Valid;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 public class MainController {
     private final PersonValidator personValidator;
     private final PersonService personService;
+    private final ProductRepository productRepository;
 
-    public MainController(PersonValidator personValidator, PersonService personService) {
+    public MainController(PersonValidator personValidator, PersonService personService, ProductRepository productRepository) {
         this.personValidator = personValidator;
         this.personService = personService;
+        this.productRepository = productRepository;
     }
 
     @GetMapping("/index")
-    String index(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
+    String index(Model model){
+        List<Product> listProduct = productRepository.findAll();
+        model.addAttribute("listProduct", listProduct);
         return "index";
     }
 //    @GetMapping("/registration")
