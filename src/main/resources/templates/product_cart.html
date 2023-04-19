@@ -10,6 +10,7 @@
     <h2 th:text="${product.getPrice()}"></h2>
     <div th:if="${product.getQuantity()>0}">
     <form th:method="post" th:action="@{/product/addToCard}" th:object="${product}">
+        <input type="hidden" th:field="*{id}">
         <label for="quantity" th:text="'В наличии '+${product.getQuantity()} +' шт.'"></label><br>
         <input type="number" th:field="*{quantity}" th:max="${product.getQuantity()}" id="quantity" name="quantity">
         <button type="submit">В корзину</button>

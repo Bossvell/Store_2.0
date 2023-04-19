@@ -56,15 +56,12 @@ public class AdminController {
         productRepository.save(product);
         return "redirect:/admin/products";
     }
-
-
     @GetMapping("/admin/products/{id}")
     public String editProduct(Model model,@PathVariable("id") int id){
         Optional<Product> optionalProduct = productRepository.findById(id);
         model.addAttribute("product",optionalProduct.orElse(null));
         return "edit_product";
     }
-
     @PostMapping("/admin/products/{id}")
     @Transactional
     public String editedProduct(@ModelAttribute Product product, @RequestParam ("file") MultipartFile file) {

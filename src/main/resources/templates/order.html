@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Заказ №'+${order.getId()}"></title>
+</head>
+<body>
+    <h1 th:text="'Вы успешно оформили заказ №'+${order.getId()}"></h1>
+    <h2>Состав заказа:</h2>
+    <table>
+        <tr>
+            <th>Название</th>
+            <th>Количество</th>
+            <th>Цена</th>
+        </tr>
+        <tr th:each="orderProduct : ${listOrderProduct}">
+            <td>
+                <a th:href="@{/product/{id}(id = ${orderProduct.getProductId()})}" th:text="${orderProduct.getName()}"></a>
+            </td>
+            <td>
+                <p th:text="${orderProduct.getQuantity()}"></p>
+            </td>
+            <td>
+                <p th:text="${orderProduct.getPrice()}"></p>
+            </td>
+        </tr>
+    </table>
+<a href="/order/history">История заказов</a>
+</body>
+</html>

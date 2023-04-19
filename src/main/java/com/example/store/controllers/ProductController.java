@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -42,13 +43,27 @@ public class ProductController {
     public String addToCard (@ModelAttribute Product product){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Optional<Person> buyer = personRepository.findByLogin(auth.getName());
-        System.out.println(auth.getDetails().toString());
-        System.out.println(buyer);
         Cart cart = new Cart();
         cart.setPerson(buyer.orElse(null));
         cart.setQuantity(product.getQuantity());
         cart.setProduct(productRepository.findById(product.getId()).orElse(null));
         cartRepository.save(cart);
         return "redirect:/product/"+product.getId();
+    }
+
+    @GetMapping("/cart")
+    public String card(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Optional<Person> buyer = personRepository.findByLogin(auth.getName());
+        List<Cart> carts = cartRepository.findByPerson(buyer.orElse(null));
+        model.addAttribute("carts", carts);
+        return "cart";
+    }
+
+    @PostMapping("/cart/delete/{id}")
+    public String deleteCard(@PathVariable int id){
+        System.out.println(id);
+        cartRepository.deleteById(id);
+        return "redirect:/cart";
     }
 }

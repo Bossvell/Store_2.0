@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Корзина</title>
+</head>
+<body>
+<form  th:method="post" th:action="@{/order/create}" th:object="${carts}">
+<table>
+  <tr>
+    <th>Изображение</th>
+    <th>Название</th>
+    <th>Наличие</th>
+    <th>Цена</th>
+    <th>Действие</th>
+  </tr>
+  <tr th:each="cart : ${carts}">
+    <td>
+      <a th:href="@{/product/{id}(id = ${cart.getProduct().getId()})}">
+        <img th:src="@{../images/{img}(img = ${cart.getProduct().getImage()})}" width="50px">
+      </a>
+    </td>
+    <td>
+      <a th:href="@{/product/{id}(id = ${cart.getProduct().getId()})}" th:text="${cart.getProduct().getName()}"></a>
+    </td>
+    <td>
+      <p th:text="${cart.getQuantity()}"></p>
+    </td>
+    <td>
+      <p th:text="${cart.getProduct().getPrice()}"></p>
+    </td>
+    <td>
+      <form th:method="post" th:action="@{/cart/delete/{id}(id=${cart.getId()})}" th:object="${cart}">
+        <button type="submit">Удалить</button>
+      </form>
+    </td>
+  </tr>
+</table>
+  <a href="/order/create">Оформить заказ</a>
+</form>
+</body>
+</html>
