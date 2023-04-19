@@ -9,10 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +56,22 @@ public class OrderController {
         return "order";
     }
 
+    @GetMapping("/order/history")
+    public String orderHistory(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Optional<Person> buyer = personRepository.findByLogin(auth.getName());
+        List<Order> orderList = orderRepository.findByPerson(buyer.get());
+        model.addAttribute("orderList", orderList);
+        return "order_history";
+    }
 
+    @GetMapping("/order/{id}")
+    public String showOrder(Model model, @PathVariable("id") int id){
+        Order order = orderRepository.findById(id).get();
+        List<OrderProduct> listOrderProduct = orderProductRepository.findByOrder(order);
+        model.addAttribute("order",order);
+        model.addAttribute("listOrderProduct",listOrderProduct);
+        return "order";
+    }
 
 }
