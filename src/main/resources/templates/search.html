@@ -5,8 +5,23 @@
     <title>Результаты поиска</title>
 </head>
 <body>
-  <form method="POST" action="/search"><input type="search" name="search"><button type="submit">Поиск</button></form>
-  <form method="POST" action="/logout"><button type="submit">Выход</button></form>
+<form method="POST" action="/logout"><button type="submit">Выход</button></form><br>
+  <form method="POST" action="/proSearch" th:object="${searchForm}">
+    <label for="search">Поиск по названию: </label>
+    <input type="search" th:field="*{name}" id="search" name="search"><br>
+    <label>Сортировка по:</label><br>
+    <div th:each="sort : ${incOrDec}">
+      <label th:for="${sort}" th:text="${sort}">возрастанию цены</label>
+      <input type="radio" th:field="*{priceIncrement}" th:value="${sort}" id="inc" name="price">
+    </div>
+    <label for="available">В наличии </label>
+    <input type="checkbox" th:field="*{available}" id="available"><br>
+    <label for="minPrice">По цене от </label>
+    <input type="number" id="minPrice" th:field="*{minPrice}" name="minPrice" th:value="${searchForm.getMinPrice()}">
+    <label for="maxPrice"> до </label>
+    <input type="number" id="maxPrice" th:field="*{maxPrice}" name="maxPrice" th:value="${searchForm.getMaxPrice()}">
+    <button type="submit">Поиск</button>
+  </form>
   <table>
     <tr>
       <th>Изображение</th>
