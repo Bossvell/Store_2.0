@@ -25,7 +25,7 @@
         <p th:field="*{role}" th:text="${person.getRole()}"></p>
       </td>
       <td>
-        <a th:href="@{admin/orders/{id}(id=${person.getId()})}">Заказы</a>
+        <a th:href="@{/admin/orders/{id}(id=${person.getId()})}">Заказы</a>
       </td>
       <td>
         <a th:href="@{/admin/users/{id}(id=${person.getId()})}">Изменить роль</a>

@@ -1,7 +1,9 @@
 package com.example.store.controllers;
 
+import com.example.store.models.Order;
 import com.example.store.models.Person;
 import com.example.store.models.Product;
+import com.example.store.repositories.OrderRepository;
 import com.example.store.repositories.ProductRepository;
 import com.example.store.services.PersonService;
 import com.example.store.services.ProductService;
@@ -21,12 +23,14 @@ public class AdminController {
     private final ProductRepository productRepository;
     private final ProductService productService;
     private final PersonService personService;
+    private final OrderRepository orderRepository;
 
     @Autowired
-    public AdminController(ProductRepository productRepository, ProductService productService, PersonService personService) {
+    public AdminController(ProductRepository productRepository, ProductService productService, PersonService personService, OrderRepository orderRepository) {
         this.productRepository = productRepository;
         this.productService = productService;
         this.personService = personService;
+        this.orderRepository = orderRepository;
     }
 
     @GetMapping("/admin")
@@ -94,5 +98,11 @@ public class AdminController {
         return "redirect:/admin/users";
     }
 
+    @GetMapping("/admin/orders/{id}")
+    public String userOrders(Model model, @PathVariable(name = "id") int id){
+        List<Order> orderList = orderRepository.findByPerson(personService.findById(id));
+        model.addAttribute("orderList", orderList);
+        return "order_history";
+    }
 
 }
