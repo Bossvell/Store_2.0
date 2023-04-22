@@ -13,13 +13,13 @@ public class SearchForm {
 
     public String toQuery() {
         String query = "from Product where";
-        if (! this.name.isEmpty()) query=query.concat(" ( name like '%" + name + "' or name like '%" + name + "%' or name like '" + name + "%' ) and");
-        query=query.concat(" price >= " + this.minPrice);
-        query=query.concat(" and price <= " + this.maxPrice);
-        if (this.available) query=query.concat(" and quantity > 0");
+        if (! this.name.isEmpty()) query = query.concat(" ( name like '%" + name + "' or name like '%" + name + "%' or name like '" + name + "%' ) and");
+        query = query.concat(" price >= " + this.minPrice);
+        query = query.concat(" and price <= " + this.maxPrice);
+        if (this.available) query = query.concat(" and quantity > 0");
         System.out.println(this.priceIncrement);
-        if (this.priceIncrement.equals("inc")) query=query.concat(" order by price asc");
-        if (this.priceIncrement.equals("dec")) query=query.concat(" order by price desc");
+        if (this.priceIncrement.equals("inc")) query = query.concat(" order by price asc");
+        if (this.priceIncrement.equals("dec")) query = query.concat(" order by price desc");
         return query;
     }
 

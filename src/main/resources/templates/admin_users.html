@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователи</title>
+</head>
+<body>
+<table>
+  <tr>
+    <th>id</th>
+    <th>Логин</th>
+    <th>Роль</th>
+    <th>Заказы</th>
+    <th>Действие</th>
+  </tr>
+  <tr  th:each="person:${listPerson}">
+    <form th:method="post" th:action="@{/admin/users}" th:object="${person}">
+      <td>
+        <p th:field="*{id}" th:text="${person.getId()}"></p>
+      </td>
+      <td>
+        <p  th:field="*{login}" th:text="${person.getLogin()}"></p>
+      </td>
+      <td>
+        <p th:field="*{role}" th:text="${person.getRole()}"></p>
+      </td>
+      <td>
+        <a th:href="@{admin/orders/{id}(id=${person.getId()})}">Заказы</a>
+      </td>
+      <td>
+        <a th:href="@{/admin/users/{id}(id=${person.getId()})}">Изменить роль</a>
+      </td>
+    </form>
+  </tr>
+</table>
+</body>
+</html>
