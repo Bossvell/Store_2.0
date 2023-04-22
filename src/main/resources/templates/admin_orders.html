@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Управление заказами</title>
+</head>
+<body>
+<h1>Список заказов</h1>
+<div th:each="order:${orderList}">
+    <form th:method="post" th:action="@{/admin/orders/{id}(id=${order.getId()})}" th:object="${order}">
+        <p th:text="'Покупатель #'+${order.getPerson().getId()}+' ('+${order.getPerson().getLogin()}+') '"></p>
+        <a th:href="@{/order/{id}(id = ${order.getId()})}" th:field="*{id}" th:text="'Заказ №'+${order.getId()}"></a>
+        <p th:text="'Статус заказа: '+${order.getStatus().getValue()}"></p>
+        <select id="status" th:field="*{status}">
+            <option th:each="enum : ${T(com.example.store.enums.OrderStatusEnum).values()}" th:selected="${enum==order.getStatus()}" th:text="${enum.getValue()}" th:value="${enum}"></option>
+        </select>
+        <button type="submit">Сохранить</button>
+    </form>
+    <hr>
+</div>
+</body>
+</html>

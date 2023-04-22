@@ -6,6 +6,7 @@
 </head>
 <body>
     <h1 th:text="'Вы успешно оформили заказ №'+${order.getId()}"></h1>
+    <h2 th:text="'Статус заказа:'+${order.getStatus()}"></h2>
     <h2>Состав заказа:</h2>
     <table>
         <tr>

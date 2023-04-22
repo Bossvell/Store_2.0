@@ -1,5 +1,6 @@
 package com.example.store.models;
 
+import com.example.store.enums.OrderStatusEnum;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,6 +14,21 @@ public class Order {
     @ManyToOne
     @JoinColumn(name="person")
     private Person person;
+
+    @Column(name="status")
+    private OrderStatusEnum status;
+
+    public Order(){
+        this.status = OrderStatusEnum.НОВЫЙ;
+    }
+
+    public OrderStatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatusEnum status) {
+        this.status = status;
+    }
 
     public long getId() {
         return id;

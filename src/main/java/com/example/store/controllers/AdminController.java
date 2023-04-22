@@ -1,5 +1,6 @@
 package com.example.store.controllers;
 
+import com.example.store.enums.OrderStatusEnum;
 import com.example.store.models.Order;
 import com.example.store.models.Person;
 import com.example.store.models.Product;
@@ -102,7 +103,24 @@ public class AdminController {
     public String userOrders(Model model, @PathVariable(name = "id") int id){
         List<Order> orderList = orderRepository.findByPerson(personService.findById(id));
         model.addAttribute("orderList", orderList);
-        return "order_history";
+        return "admin_orders";
+    }
+
+    @GetMapping("admin/orders")
+    public String adminOrders(Model model) {
+        List<Order> orderList = orderRepository.findAllByOrderByIdAsc();
+        model.addAttribute("orderList", orderList);
+        model.addAttribute("order",new Order());
+        return "admin_orders";
+    }
+
+    @PostMapping("/admin/orders/{id}")
+    @Transactional
+    public String changeOrderStatus (Model model, @PathVariable(name="id") int id, @ModelAttribute(name="order") Order order){
+        orderRepository.findById(id).get().setStatus(order.getStatus());
+        List<Order> orderList = orderRepository.findAll();
+        model.addAttribute("orderList", orderList);
+        return "redirect:/admin/orders";
     }
 
 }
