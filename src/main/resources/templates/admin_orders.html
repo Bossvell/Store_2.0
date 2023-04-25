@@ -6,6 +6,7 @@
 </head>
 <body>
 <h1>Список заказов</h1>
+<form method="GET" action="/admin/orders"><input type="number" max="9999" name="search" placeholder="Введите последние 4 цифры заказа"><button type="submit">Поиск</button></form>
 <div th:each="order:${orderList}">
     <form th:method="post" th:action="@{/admin/orders/{id}(id=${order.getId()})}" th:object="${order}">
         <p th:text="'Покупатель #'+${order.getPerson().getId()}+' ('+${order.getPerson().getLogin()}+') '"></p>

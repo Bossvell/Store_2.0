@@ -10,7 +10,7 @@ public class OrderProduct {
     @Column(name="id")
     private long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="orders")
     private Order order;
 

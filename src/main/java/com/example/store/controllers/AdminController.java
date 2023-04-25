@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -107,8 +108,17 @@ public class AdminController {
     }
 
     @GetMapping("admin/orders")
-    public String adminOrders(Model model) {
+    public String adminOrders(Model model, @RequestParam(name="search") Optional<Integer> search) {
+        List<Order> orderListForSearch = new ArrayList<>();
         List<Order> orderList = orderRepository.findAllByOrderByIdAsc();
+        if (! search.isEmpty()) {
+            for (Order order : orderList) {
+                if((order.getId() % 10000) == search.get()){
+                    orderListForSearch.add(order);
+                }
+            }
+            orderList = orderListForSearch;
+        }
         model.addAttribute("orderList", orderList);
         model.addAttribute("order",new Order());
         return "admin_orders";
@@ -122,5 +132,9 @@ public class AdminController {
         model.addAttribute("orderList", orderList);
         return "redirect:/admin/orders";
     }
+
+
+
+
 
 }

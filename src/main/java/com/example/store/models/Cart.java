@@ -1,6 +1,7 @@
 package com.example.store.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name="cart")
@@ -10,11 +11,12 @@ public class Cart {
     @Column(name="id")
     private int id;
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
     @JoinColumn(name="person")
+    @NotNull
     private Person person;
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
     @JoinColumn(name="product")
     private Product product;
 

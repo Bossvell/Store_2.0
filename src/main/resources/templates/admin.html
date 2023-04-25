@@ -2,12 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Личный кабинет администратора</title>
+    <title>Панель администратора</title>
 </head>
 <body>
+<div class="exit">
 <form method="POST" action="/logout"><button type="submit">Выход</button></form>
+</div>
+<div class="top-nav">
 <a href="/admin/products">Управление товарами</a>
 <a href="/admin/users">Управление пользователями</a>
 <a href="/admin/orders">Управление заказами</a>
+</div>
 </body>
 </html>

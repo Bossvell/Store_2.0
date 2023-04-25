@@ -33,6 +33,7 @@ public class ProductService {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         try {
             Path path = Paths.get("./src/main/resources/static/images/" + fileName);
+    //        Path path = Paths.get("C:/Users/bossv/IdeaProjects/Store/src/main/resources/static/images/" + fileName);
             Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace();

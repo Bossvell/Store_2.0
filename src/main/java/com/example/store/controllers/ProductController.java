@@ -52,10 +52,11 @@ public class ProductController {
     }
 
     @GetMapping("/cart")
-    public String card(Model model){
+    public String cart(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Optional<Person> buyer = personRepository.findByLogin(auth.getName());
         List<Cart> carts = cartRepository.findByPerson(buyer.orElse(null));
+        System.out.println(buyer.get().getLogin());
         model.addAttribute("carts", carts);
         return "cart";
     }
