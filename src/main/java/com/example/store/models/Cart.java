@@ -11,12 +11,12 @@ public class Cart {
     @Column(name="id")
     private int id;
 
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="person")
-    @NotNull
+    @NotNull(message="Сначала нужно зарегистрироваться")
     private Person person;
 
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="product")
     private Product product;
 

@@ -104,6 +104,7 @@ public class AdminController {
     public String userOrders(Model model, @PathVariable(name = "id") int id){
         List<Order> orderList = orderRepository.findByPerson(personService.findById(id));
         model.addAttribute("orderList", orderList);
+        model.addAttribute("order",new Order());
         return "admin_orders";
     }
 

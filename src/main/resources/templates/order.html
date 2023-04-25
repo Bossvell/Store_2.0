@@ -26,6 +26,6 @@
             </td>
         </tr>
     </table>
-<a href="/order/history">История заказов</a>
+<a th:href="@{/order/history/{id}(id=${order.getPerson().getId()})}">История заказов</a>
 </body>
 </html>

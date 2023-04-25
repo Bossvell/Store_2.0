@@ -7,15 +7,15 @@
 <body>
     <form th:method="POST" th:action="@{/admin/products/add}" th:object="${product}" enctype="multipart/form-data">
         <label for="name">Название товара: </label>
-        <input type="text" th:field="*{name}" id="name" name="name">
+        <input type="text" th:field="*{name}" id="name" name="name"><br>
         <label for="description">Описание товара: </label>
-        <input type="text" th:field="*{description}" id="description" name="description">
+        <input type="text" th:field="*{description}" id="description" name="description"><br>
         <label for="quantity">Количество товара: </label>
-        <input type="number" th:field="*{quantity}" id="quantity" name="quantity">
+        <input type="number" th:field="*{quantity}" id="quantity" name="quantity"><br>
         <label for="price">Цена товара: </label>
-        <input type="number" th:field="*{price}" id="price" name="price">
-        <label for="img">Фотография товара: </label>
-        <input type="text" th:field="*{image}" id="img" name="img">
+        <input type="number" th:field="*{price}" id="price" name="price"><br>
+        <label >Фотография товара: </label>
+<!--        <input type="text" th:field="*{image}" id="img" name="img">-->
         <input type="file" name="file" accept="image/png, image/gif, image/jpeg">
         <button type="submit">Сохранить</button>
     </form>

@@ -49,17 +49,17 @@ public class OrderController {
             orderProduct.setQuantity(cart.getQuantity());
             orderProductRepository.save(orderProduct);
             listOrderProduct.add(orderProduct);
-            cartRepository.delete(cart);
+            cartRepository.deleteById(cart.getId());
         }
         model.addAttribute("order",order);
         model.addAttribute("listOrderProduct",listOrderProduct);
         return "order";
     }
 
-    @GetMapping("/order/history")
-    public String orderHistory(Model model){
+    @GetMapping("/order/history/{id}")
+    public String orderHistory(Model model, @PathVariable("id") int id){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Optional<Person> buyer = personRepository.findByLogin(auth.getName());
+        Optional<Person> buyer = personRepository.findById(id);
         List<Order> orderList = orderRepository.findByPerson(buyer.get());
         model.addAttribute("orderList", orderList);
         return "order_history";
