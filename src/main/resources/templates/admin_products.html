@@ -8,25 +8,22 @@
 <body>
 <div th:insert="~{parts/login_part.html :: header}"></div>
 <div th:insert="~{parts/admin_part.html :: nav (1)}"></div>
-    <table>
+    <table class="table table-hover mt-3 text-center">
         <tr>
-            <th>Изображение</th>
-            <th>Название</th>
-            <th>Наличие</th>
-            <th>Цена</th>
-            <th>В магазин</th>
+            <th scope="col">Изображение</th>
+            <th scope="col">Название</th>
+            <th scope="col">Наличие</th>
+            <th scope="col">Цена</th>
+            <th scope="col">Действие</th>
         </tr>
-        <tr th:each="product : ${listProduct}">
+        <tr  scope="row" th:each="product : ${listProduct}">
             <td>
                 <a th:href="@{/admin/products/{id}(id = ${product.getId()})}">
-                    <img th:src="@{../images/{img}(img = ${product.getImage()})}" width="50px">
+                    <img th:src="@{../images/{img}(img = ${product.getImage()})}" width="80px">
                 </a>
             </td>
             <td>
-                <a th:href="@{/admin/products/{id}(id = ${product.getId()})}" th:text="${product.getName()}"></a>
-                <br>
-                <a th:href="@{/admin/products/{id}(id = ${product.getId()})}">Изменить </a>
-                <a th:href="@{/admin/products/{id}/delete(id = ${product.getId()})}">Удалить </a>
+                <a th:href="@{/admin/products/{id}(id = ${product.getId()})}" class="card-title font-weight-bold" style="font-size: large" th:text="${product.getName()}"></a>
             </td>
             <td>
                 <p th:text="${product.getQuantity()}"></p>
@@ -35,7 +32,15 @@
                 <p th:text="${product.getPrice()}"></p>
             </td>
             <td>
-                <a th:href="@{/product/{id}(id = ${product.getId()})}"> В магазин</a>
+                <a th:href="@{/product/{id}(id = ${product.getId()})}">
+                    <img th:src="@{../images/watch.png}" width="25px" alt="В магазин">
+                </a>
+                <a th:href="@{/admin/products/{id}(id = ${product.getId()})}">
+                    <img th:src="@{../images/edit.png}" width="25px" alt="Изменить">
+                </a>
+                <a th:href="@{/admin/products/{id}/delete(id = ${product.getId()})}">
+                    <img th:src="@{../images/delete.png}" width="25px" alt="Удалить">
+                </a>
             </td>
         </tr>
     </table>
