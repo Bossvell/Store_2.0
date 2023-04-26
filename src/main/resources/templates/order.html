@@ -7,18 +7,20 @@
 </head>
 <body>
 <div th:insert="~{parts/login_part.html :: header}"></div>
-    <h1 th:text="'Вы успешно оформили заказ №'+${order.getId()}"></h1>
-    <h2 th:text="'Статус заказа:'+${order.getStatus()}"></h2>
-    <h2>Состав заказа:</h2>
-    <table>
+    <h3 class="text-center mt-5" th:text="'Вы успешно оформили заказ №'+${order.getId()}"></h3>
+<div class="d-flex justify-content-between my-2 mx-5">
+    <h3 class="float-left">Состав заказа:</h3>
+    <h4 class="float-right" th:text="'Статус заказа: '+${order.getStatus().getValue()}"></h4>
+</div>
+    <table  class="table table-hover mt-3 text-center">
         <tr>
-            <th>Название</th>
-            <th>Количество</th>
-            <th>Цена</th>
+            <th scope="col">Название</th>
+            <th scope="col">Количество</th>
+            <th scope="col">Цена</th>
         </tr>
-        <tr th:each="orderProduct : ${listOrderProduct}">
+        <tr scope="row" th:each="orderProduct : ${listOrderProduct}">
             <td>
-                <a th:href="@{/product/{id}(id = ${orderProduct.getProductId()})}" th:text="${orderProduct.getName()}"></a>
+                <a  class="card-title font-weight-bold" th:href="@{/product/{id}(id = ${orderProduct.getProductId()})}" th:text="${orderProduct.getName()}"></a>
             </td>
             <td>
                 <p th:text="${orderProduct.getQuantity()}"></p>
@@ -28,6 +30,6 @@
             </td>
         </tr>
     </table>
-<a th:href="@{/order/history/{id}(id=${order.getPerson().getId()})}">История заказов</a>
+<a class="btn btn-primary float-right mr-5" th:href="@{/order/history/{id}(id=${order.getPerson().getId()})}">История заказов</a>
 </body>
 </html>
