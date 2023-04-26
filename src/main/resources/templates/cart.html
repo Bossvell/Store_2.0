@@ -8,22 +8,22 @@
 <body>
 <div th:insert="~{parts/login_part.html :: header}"></div>
 <form  th:method="post" th:action="@{/order/create}" th:object="${carts}">
-<table>
+<table class="table table-hover mt-3 text-center">
   <tr>
-    <th>Изображение</th>
-    <th>Название</th>
-    <th>Наличие</th>
-    <th>Цена</th>
-    <th>Действие</th>
+    <th scope="col">Изображение</th>
+    <th scope="col">Название</th>
+    <th scope="col">Количество</th>
+    <th scope="col">Цена</th>
+    <th scope="col">Действие</th>
   </tr>
-  <tr th:each="cart : ${carts}">
+  <tr  scope="row" th:each="cart : ${carts}">
     <td>
       <a th:href="@{/product/{id}(id = ${cart.getProduct().getId()})}">
-        <img th:src="@{../images/{img}(img = ${cart.getProduct().getImage()})}" width="50px">
+        <img th:src="@{../images/{img}(img = ${cart.getProduct().getImage()})}" width="80px">
       </a>
     </td>
     <td>
-      <a th:href="@{/product/{id}(id = ${cart.getProduct().getId()})}" th:text="${cart.getProduct().getName()}"></a>
+      <a class="card-title font-weight-bold" th:href="@{/product/{id}(id = ${cart.getProduct().getId()})}" th:text="${cart.getProduct().getName()}"></a>
     </td>
     <td>
       <p th:text="${cart.getQuantity()}"></p>
@@ -33,12 +33,14 @@
     </td>
     <td>
       <form th:method="post" th:action="@{/cart/delete/{id}(id=${cart.getId()})}" th:object="${cart}">
-        <button type="submit">Удалить</button>
+        <button class="btn btn-link" type="submit">
+          <img th:src="@{../images/delete.png}" width="25px" alt="Удалить">
+        </button>
       </form>
     </td>
   </tr>
 </table>
-  <a href="/order/create">Оформить заказ</a>
+  <a class="btn btn-primary float-right mr-5" href="/order/create">Оформить заказ</a>
 </form>
 </body>
 </html>

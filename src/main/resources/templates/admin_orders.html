@@ -8,19 +8,59 @@
 <body>
 <div th:insert="~{parts/login_part.html :: header}"></div>
 <div th:insert="~{parts/admin_part.html :: nav (3)}"></div>
-<h1>Список заказов</h1>
-<form method="GET" action="/admin/orders"><input type="number" max="9999" name="search" placeholder="Введите последние 4 цифры заказа"><button type="submit">Поиск</button></form>
-<div th:each="order:${orderList}">
-    <form th:method="post" th:action="@{/admin/orders/{id}(id=${order.getId()})}" th:object="${order}">
-        <p th:text="'Покупатель #'+${order.getPerson().getId()}+' ('+${order.getPerson().getLogin()}+') '"></p>
-        <a th:href="@{/order/{id}(id = ${order.getId()})}" th:field="*{id}" th:text="'Заказ №'+${order.getId()}"></a>
-        <p th:text="'Статус заказа: '+${order.getStatus().getValue()}"></p>
-        <select id="status" th:field="*{status}">
-            <option th:each="enum : ${T(com.example.store.enums.OrderStatusEnum).values()}" th:selected="${enum==order.getStatus()}" th:text="${enum.getValue()}" th:value="${enum}"></option>
-        </select>
-        <button type="submit">Сохранить</button>
-    </form>
-    <hr>
+<div class="d-flex justify-content-around">
+    <div class="d-flex justify-content-around align-content-center form-inline my-2 my-lg-0 w-100"><h1 class="float-left">Список заказов</h1>
+        <form method="GET" action="/admin/orders">
+            <input class="form-control mr-sm-2" type="number" max="9999" name="search" placeholder="Введите последние 4 цифры заказа">
+            <button class="btn btn-outline-success my-2 my-sm-0 float-right" type="submit">Поиск</button>
+         </form>
+    </div>
 </div>
+<table class="table table-hover mt-3 text-center">
+    <tr>
+        <th scope="col">Покупатель</th>
+        <th scope="col">Логин</th>
+        <th scope="col">Заказ</th>
+        <th scope="col">Статус</th>
+        <th scope="col">Изменить статус</th>
+    </tr>
+    <tr scope="row" th:each="order:${orderList}">
+        <td>
+            <p th:text="${order.getPerson().getId()}"></p>
+        </td>
+        <td>
+            <p th:text="${order.getPerson().getLogin()}"></p>
+        </td>
+        <td>
+            <a th:href="@{/order/{id}(id = ${order.getId()})}" th:field="*{id}" th:text="'Заказ №'+${order.getId()}"></a>
+        </td>
+        <td>
+            <p th:text="${order.getStatus().getValue()}"></p>
+        </td>
+        <td>
+            <form th:method="post" th:action="@{/admin/orders/{id}(id=${order.getId()})}" th:object="${order}">
+                <select id="status" th:field="*{status}">
+                    <option th:each="enum : ${T(com.example.store.enums.OrderStatusEnum).values()}" th:selected="${enum==order.getStatus()}" th:text="${enum.getValue()}" th:value="${enum}"></option>
+                </select>
+                <button class="btn btn-success" type="submit">Сохранить</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+
+
+<!--<div th:each="order:${orderList}">-->
+<!--    <form th:method="post" th:action="@{/admin/orders/{id}(id=${order.getId()})}" th:object="${order}">-->
+<!--        <p th:text="'Покупатель #'+${order.getPerson().getId()}+' ('+${order.getPerson().getLogin()}+') '"></p>-->
+<!--        <a th:href="@{/order/{id}(id = ${order.getId()})}" th:field="*{id}" th:text="'Заказ №'+${order.getId()}"></a>-->
+<!--        <p th:text="'Статус заказа: '+${order.getStatus().getValue()}"></p>-->
+<!--        <select id="status" th:field="*{status}">-->
+<!--            <option th:each="enum : ${T(com.example.store.enums.OrderStatusEnum).values()}" th:selected="${enum==order.getStatus()}" th:text="${enum.getValue()}" th:value="${enum}"></option>-->
+<!--        </select>-->
+<!--        <button type="submit">Сохранить</button>-->
+<!--    </form>-->
+<!--    <hr>-->
+<!--</div>-->
 </body>
 </html>
