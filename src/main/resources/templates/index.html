@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.css}" type="text/css" rel="stylesheet">
+<!--    <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>-->
     <title>Главная страница</title>
 </head>
 <body>
-<form method="POST" action="/search"><input type="search" name="search"><button type="submit">Поиск</button></form>
-<form method="POST" action="/logout"><button type="submit">Выход</button></form>
+<div th:insert="~{parts/login_part.html :: header}"></div>
 <table>
     <tr>
         <th>Изображение</th>

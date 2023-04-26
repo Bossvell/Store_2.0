@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.css}" type="text/css" rel="stylesheet">
     <title>Управление заказами</title>
 </head>
 <body>
+<div th:insert="~{parts/login_part.html :: header}"></div>
+<div th:insert="~{parts/admin_part.html :: nav (3)}"></div>
 <h1>Список заказов</h1>
 <form method="GET" action="/admin/orders"><input type="number" max="9999" name="search" placeholder="Введите последние 4 цифры заказа"><button type="submit">Поиск</button></form>
 <div th:each="order:${orderList}">

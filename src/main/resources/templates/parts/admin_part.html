@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Части шаблона для администратора</title>
+</head>
+<body>
+<nav class="nav nav-pills nav-fill" th:fragment="active(number)">
+    <a th:class="${number==1} ? 'nav-item nav-link btn-primary mr-3' : 'nav-item nav-link btn-light mr-3'" href="/admin/products">Управление товарами</a>
+    <a th:class="${number==2} ? 'nav-item nav-link btn-primary mr-3' : 'nav-item nav-link btn-light mr-3'" href="/admin/users">Управление пользователями</a>
+    <a th:class="${number==3} ? 'nav-item nav-link btn-primary mr-3' : 'nav-item nav-link btn-light mr-3'" href="/admin/orders">Управление заказами</a>
+</nav>
+</body>
+</html>

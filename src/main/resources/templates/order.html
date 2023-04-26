@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.css}" type="text/css" rel="stylesheet">
     <title th:text="'Заказ №'+${order.getId()}"></title>
 </head>
 <body>
+<div th:insert="~{parts/login_part.html :: header}"></div>
     <h1 th:text="'Вы успешно оформили заказ №'+${order.getId()}"></h1>
     <h2 th:text="'Статус заказа:'+${order.getStatus()}"></h2>
     <h2>Состав заказа:</h2>

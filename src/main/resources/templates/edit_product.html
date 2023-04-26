@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <link th:href="@{/css/bootstrap.css}" type="text/css" rel="stylesheet">
     <title>Редактирование товара</title>
 </head>
 <body>
+<div th:insert="~{parts/login_part.html :: header}"></div>
     <form th:method="POST" th:action="@{/admin/products/{id}(id=${product.getId()})}" th:object="${product}" enctype="multipart/form-data">
         <!--<input type="hidden" th:field="*{id}">
         <label for="image">Изобржение</label>

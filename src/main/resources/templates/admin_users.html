@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+  <link th:href="@{/css/bootstrap.css}" type="text/css" rel="stylesheet">
     <title>Пользователи</title>
 </head>
 <body>
+<div th:insert="~{parts/login_part.html :: header}"></div>
+<div th:insert="~{parts/admin_part.html :: nav (1)}"></div>
 <table>
   <tr>
     <th>id</th>
