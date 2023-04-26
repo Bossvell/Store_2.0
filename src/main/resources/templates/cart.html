@@ -32,11 +32,9 @@
       <p th:text="${cart.getProduct().getPrice()}"></p>
     </td>
     <td>
-      <form th:method="post" th:action="@{/cart/delete/{id}(id=${cart.getId()})}" th:object="${cart}">
-        <button class="btn btn-link" type="submit">
-          <img th:src="@{../images/delete.png}" width="25px" alt="Удалить">
-        </button>
-      </form>
+      <a th:href="@{/cart/delete/{id}(id=${cart.getId()})}">
+        <img th:src="@{../images/delete.png}" width="25px" alt="Удалить">
+      </a>
     </td>
   </tr>
 </table>

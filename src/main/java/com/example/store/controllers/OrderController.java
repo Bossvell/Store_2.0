@@ -39,6 +39,9 @@ public class OrderController {
         orderRepository.save(order);
         List<OrderProduct> listOrderProduct = new ArrayList<>();
         List<Cart> carts = cartRepository.findByPerson(buyer.get());
+        if (carts.size()==0){
+            return "/cart";
+        }
         for (Cart cart: carts) {
             OrderProduct orderProduct = new OrderProduct();
             Product product = cart.getProduct();

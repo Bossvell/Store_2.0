@@ -44,7 +44,10 @@ public class ProductController {
     }
 
     @PostMapping("/product/addToCard")
-    public String addToCard (@ModelAttribute(name="productToCart") Product product){
+    public String addToCard (@ModelAttribute(name="productToCart") Product product) {
+        if (product.getQuantity()<=0){
+            return "redirect:/product/" + product.getId();
+        }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Optional<Person> buyer = personRepository.findByLogin(auth.getName());
         Cart cart = new Cart();
@@ -65,7 +68,7 @@ public class ProductController {
         return "cart";
     }
 
-    @PostMapping("/cart/delete/{id}")
+    @GetMapping("/cart/delete/{id}")
     public String deleteCard(@PathVariable int id){
         System.out.println(id);
         cartRepository.deleteById(id);

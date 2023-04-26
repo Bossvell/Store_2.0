@@ -14,12 +14,12 @@
         <h3 class="card-title" th:text="${product.getName()}">Card title</h3>
         <p class="price" th:text="${product.getPrice()}+' р.'"></p>
         <div th:if="${product.getQuantity()>0}">
-            <form th:method="post" th:action="@{/product/addToCard}" th:object="${productToCart}">
+            <form sec:authorize="isAuthenticated()" th:method="post" th:action="@{/product/addToCard}" th:object="${productToCart}">
                 <input type="hidden" width="0px" th:field="*{id}">
                 <input type="number" th:field="*{quantity}" th:max="${product.getQuantity()}" id="quantity" name="quantity">
-            <button type="submit" class="btn btn-primary">В корзину</button>
-            <p class="card-text"><small class="text-muted" th:text="'В наличии '+${product.getQuantity()} +' шт.'"></small></p>
+                <button type="submit" class="btn btn-primary">В корзину</button>
             </form>
+            <p class="card-text"><small class="text-muted" th:text="'В наличии '+${product.getQuantity()} +' шт.'"></small></p>
         </div>
         <h6 class="card-text" th:if="${product.getQuantity()<=0}">Нет в наличии</h6>
         <h4  class="card-text mt-2" >Описание:</h4>

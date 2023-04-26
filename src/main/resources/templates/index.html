@@ -13,7 +13,7 @@
         <div class="row justify-content-center">
             <div th:each="product : ${listProduct}">
                 <div class="col">
-                    <div class="card" style="width: 12rem;">
+                    <div class="card mb-2" style="width: 12rem;">
                         <a th:href="@{/product/{id}(id = ${product.getId()})}">
                             <img class="card-img-top" th:src="@{../images/{img}(img = ${product.getImage()})}" th:alt="${product.getName()}">
                         </a>

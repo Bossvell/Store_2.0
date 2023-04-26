@@ -7,22 +7,61 @@
 </head>
 <body>
 <div th:insert="~{parts/login_part.html :: header}"></div>
-    <form th:method="POST" th:action="@{/admin/products/{id}(id=${product.getId()})}" th:object="${product}" enctype="multipart/form-data">
-        <!--<input type="hidden" th:field="*{id}">
-        <label for="image">Изобржение</label>
-        <input th:field="*{image}" id="image" type="text">
-        <img>-->
-        <br><br>
-        <label for="name">Название</label>
-        <input th:field="*{name}" id="name" type="text"><br>
-        <label for="description">Описание</label>
-        <input th:field="*{description}" id="description" type="text" ><br>
-        <label for="quantity">Количество</label>
-        <input th:field="*{quantity}" id="quantity" type="number" ><br><br>
-        <label for="price">Цена</label>
-        <input th:field="*{price}" id="price" type="number"><br>
-        <input type="file" name="file" accept="image/png, image/gif, image/jpeg">
-        <input type="submit" value="Сохранить">
-    </form>
+
+        <div class="container-fluid text-center py-3 justify-content-center bg-light rounded">
+            <h3 class="">Редактирование товара</h3>
+            <form th:method="POST" th:action="@{/admin/products/{id}(id=${product.getId()})}" th:object="${product}" enctype="multipart/form-data">
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Название: </span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" th:field="*{name}" id="name" name="name"><br>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default2">Описание: </span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default2" th:field="*{description}" id="description" name="description"><br>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default3">Количество: </span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default3" th:field="*{quantity}" id="quantity" name="quantity"><br>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default4">Цена: </span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default4" th:field="*{price}" id="price" name="price"><br>
+                </div>
+                <!--        <div class="input-group mb-3">-->
+                <!--            <div class="input-group-prepend">-->
+                <!--                <span class="input-group-text">Изображение</span>-->
+                <!--            </div>-->
+                <!--            <div class="custom-file">-->
+                <!--                <input type="file" class="custom-file-input" id="inputGroupFile01" accept="image/png, image/gif, image/jpeg">-->
+                <!--                <label class="custom-file-label" for="inputGroupFile01"></label>-->
+                <!--            </div>-->
+                <!--        </div>-->
+                <label >Фотография товара: </label>
+                <input type="text" th:field="*{image}" id="img" name="img">
+                <input type="file" name="file" accept="image/png, image/gif, image/jpeg"><br>
+                <button class="btn btn-success" type="submit">Сохранить</button>
+                <!--        <label for="name">Название товара: </label>-->
+                <!--        <input type="text" th:field="*{name}" id="name" name="name"><br>-->
+                <!--        <label for="description">Описание товара: </label>-->
+                <!--        <input type="text" th:field="*{description}" id="description" name="description"><br>-->
+                <!--        <label for="quantity">Количество товара: </label>-->
+                <!--        <input type="number" th:field="*{quantity}" id="quantity" name="quantity"><br>-->
+                <!--        <label for="price">Цена товара: </label>-->
+                <!--        <input type="number" th:field="*{price}" id="price" name="price"><br>-->
+                <!--        <label >Фотография товара: </label>-->
+                <!--        <input type="text" th:field="*{image}" id="img" name="img">-->
+                <!--        <input type="file" name="file" accept="image/png, image/gif, image/jpeg"><br>-->
+                <!--        <button class="btn btn-success" type="submit">Сохранить</button>-->
+            </form>
+        </div>
 </body>
 </html>
