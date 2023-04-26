@@ -36,11 +36,15 @@ public class ProductController {
         Optional<Product> product = productRepository.findById(id);
         if(product.isEmpty()) return "redirect:/index";
         model.addAttribute("product", product.orElse(null));
+        Product productToCart =  new Product();
+        productToCart.setQuantity(1);
+        productToCart.setId(product.get().getId());
+        model.addAttribute("productToCart",productToCart);
         return "product_cart";
     }
 
     @PostMapping("/product/addToCard")
-    public String addToCard (@ModelAttribute Product product){
+    public String addToCard (@ModelAttribute(name="productToCart") Product product){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Optional<Person> buyer = personRepository.findByLogin(auth.getName());
         Cart cart = new Cart();
