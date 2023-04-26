@@ -7,13 +7,13 @@
 </head>
 <body>
 <div th:insert="~{parts/login_part.html :: header}"></div>
-<form method="POST" action="/logout"><button type="submit">Выход</button></form><br>
+<div class="container-fluid text-center py-3 justify-content-center bg-light rounded">
   <form method="POST" action="/proSearch" th:object="${searchForm}">
     <label for="search">Поиск по названию: </label>
     <input type="search" th:field="*{name}" id="search" name="search"><br>
     <label>Сортировка по:</label><br>
     <div th:each="sort : ${incOrDec}">
-      <label th:for="${sort}" th:text="${sort}">возрастанию цены</label>
+      <label th:for="${sort}" th:text="${sort=='inc'} ? 'возрастанию цены' : 'убыванию цены'"></label>
       <input type="radio" th:field="*{priceIncrement}" th:value="${sort}" id="inc" name="price">
     </div>
     <label for="available">В наличии </label>
@@ -22,28 +22,51 @@
     <input type="number" id="minPrice" th:field="*{minPrice}" name="minPrice" th:value="${searchForm.getMinPrice()}">
     <label for="maxPrice"> до </label>
     <input type="number" id="maxPrice" th:field="*{maxPrice}" name="maxPrice" th:value="${searchForm.getMaxPrice()}">
-    <button type="submit">Поиск</button>
+    <button class="btn btn-success" type="submit">Поиск</button>
   </form>
-  <table>
-    <tr>
-      <th>Изображение</th>
-      <th>Название</th>
-      <th>Цена</th>
-    </tr>
-    <tr th:each="product : ${listProduct}">
-      <td>
-        <a th:href="@{/product/{id}(id = ${product.getId()})}">
-          <img th:src="@{../images/{img}(img = ${product.getImage()})}" width="300px">
-        </a>
-      </td>
-      <td>
-        <a th:href="@{/product/{id}(id = ${product.getId()})}" th:text="${product.getName()}"></a>
-        <br>
-      </td>
-      <td>
-        <p th:text="${product.getPrice()}+'р.'"></p>
-      </td>
-    </tr>
-  </table>
+</div>
+<div class="container-fluid mt-3 justify-content-center">
+  <div class="row justify-content-center">
+    <div th:each="product : ${listProduct}">
+      <div class="col">
+        <div class="card" style="width: 12rem;">
+          <a th:href="@{/product/{id}(id = ${product.getId()})}">
+            <img class="card-img-top" th:src="@{../images/{img}(img = ${product.getImage()})}" th:alt="${product.getName()}">
+          </a>
+          <div class="card-body">
+            <a th:href="@{/product/{id}(id = ${product.getId()})}">
+              <h5 class="card-title" th:text="${product.getName()}">Card title</h5>
+            </a>
+            <p class="price" th:text="${product.getPrice()}+' р.'"></p>
+            <a th:href="@{/product/{id}(id = ${product.getId()})}" class="btn btn-primary">Купить</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--  <table>-->
+<!--    <tr>-->
+<!--      <th>Изображение</th>-->
+<!--      <th>Название</th>-->
+<!--      <th>Цена</th>-->
+<!--    </tr>-->
+<!--    <tr th:each="product : ${listProduct}">-->
+<!--      <td>-->
+<!--        <a th:href="@{/product/{id}(id = ${product.getId()})}">-->
+<!--          <img th:src="@{../images/{img}(img = ${product.getImage()})}" width="300px">-->
+<!--        </a>-->
+<!--      </td>-->
+<!--      <td>-->
+<!--        <a th:href="@{/product/{id}(id = ${product.getId()})}" th:text="${product.getName()}"></a>-->
+<!--        <br>-->
+<!--      </td>-->
+<!--      <td>-->
+<!--        <p th:text="${product.getPrice()}+'р.'"></p>-->
+<!--      </td>-->
+<!--    </tr>-->
+<!--  </table>-->
 </body>
 </html>

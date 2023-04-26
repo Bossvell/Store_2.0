@@ -7,7 +7,7 @@
 </head>
 <body>
 <div th:insert="~{parts/login_part.html :: header}"></div>
-<div class="container-fluid text-center mt-5 justify-content-center bg-light rounded">
+<div class="container-fluid text-center py-3 justify-content-center bg-light rounded">
 <h3 class="">Добавление товара</h3>
     <form th:method="POST" th:action="@{/admin/products/add}" th:object="${product}" enctype="multipart/form-data">
         <div class="input-group mb-3">
