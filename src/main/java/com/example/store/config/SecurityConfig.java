@@ -24,10 +24,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.userDetailsService(personDetailsService).csrf().disable()  //не работает logout
         .authorizeHttpRequests()//все страницы защищены формой аутентификации
-            .requestMatchers("/admin","/admin/**", "/logout","/cart/**", "order/**").hasRole("ADMIN")// паттерн admin доступен только для роли ADMIN
+            .requestMatchers("/admin","/admin/**", "/logout").hasRole("ADMIN")// паттерн admin доступен только для роли ADMIN
                 .requestMatchers("/authentication","/registration","/error","/resources/**", "/static/**",
                         "/css/**","/js/**","/images/**", "/index", "/product/**", "/search", "/proSearch").permitAll()//доступны всем
-                .requestMatchers("/logout", "/logout", "/cart/**", "order/**").hasRole("USER")// доступен только для роли USER//            .anyRequest().hasAnyRole("USER","ADMIN")// все остальные доступны обоим пользователям
+                .anyRequest().hasAnyRole("USER","ADMIN")// все остальные доступны обоим пользователям
                 //("/authentication","/error", "/registration").permitAll()//для незалогиненых доступны страницы
                 //.anyRequest().authenticated()//для всех остальных запустить форму аутентификацию
             .and().formLogin().loginPage("/authentication") //какой url отправляется при заходе на защищенную страницу
